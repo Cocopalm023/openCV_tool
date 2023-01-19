@@ -1,13 +1,13 @@
 import cv2
 import os
-from cv2 import MORPH_CLOSE
-from cv2 import MORPH_OPEN
 import numpy as np
-import matplotlib.pyplot as plt
 
+
+# Don't care
 def passFunction(x):
      pass
 
+# initialize TrackerBar
 def initializeTrackerBar(img):
      windowName = 'TrackerBar'
      cv2.namedWindow(windowName)
@@ -17,6 +17,7 @@ def initializeTrackerBar(img):
      cv2.createTrackbar('Width Bottom', windowName, 200, img.shape[1]//2, passFunction)
      cv2.createTrackbar('Height Bottom', windowName, 100, img.shape[0], passFunction)
 
+# Get Region of interesting
 def getROI(img):
      height = img.shape[0]
      width = img.shape[1]
@@ -26,6 +27,7 @@ def getROI(img):
      masked_img = cv2.bitwise_and(img, mask)
      return masked_img
 
+# Get the trackerBar value
 def ValTrackers(img):
      windowName = 'TrackerBar'
      widthTop = cv2.getTrackbarPos('Width Top', windowName)
@@ -36,6 +38,7 @@ def ValTrackers(img):
      points = np.float32([(widthBottom, heightBottom), (widthTop, heightTop), (img.shape[1] - widthTop, heightTop), (img.shape[1] - widthBottom, heightBottom)])
      return points
 
+# Draw the points on the frame 
 def drawpoint(img, points):
      picture = img
      for i in range(4):
