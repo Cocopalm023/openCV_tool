@@ -1,6 +1,9 @@
 '''
 可視覺化的ROI小工具
 利用滑桿來控制想保留的區域
+
+2023/01/20 3:50
+create by LYZ
 '''
 import cv2
 import numpy as np
