@@ -1,6 +1,6 @@
 '''
-可視覺化的ROI小工具
-利用滑桿來控制想保留的區域
+可視覺化的小工具
+利用滑桿來控制想要得數值
 
 2023/01/20 3:50
 create by LYZ
@@ -52,6 +52,26 @@ def drawpoint(img, points):
      
      return picture
 
+# BGR to HSV
+def toHSV(img):
+     img_copy = img.copy()
+     img_HSV = cv2.cvtColor(img_copy, cv2.COLOR_BGR2HSV)
+     return img_HSV
+
+# get specify color mask
+def getHsvMask(img):
+     h_min = cv2.getTrackbarPos('HUE Min', 'TrackerBar')
+     h_max = cv2.getTrackbarPos('HUE Max', 'TrackerBar')
+     s_min = cv2.getTrackbarPos('SAT Min', 'TrackerBar')
+     s_max = cv2.getTrackbarPos('SAT Max', 'TrackerBar')
+     v_min = cv2.getTrackbarPos('VALUE Min', 'TrackerBar')
+     v_max = cv2.getTrackbarPos('VALUE Max', 'TrackerBar')
+     lowerWhite = np.array([h_min, s_min, v_min])
+     upperWhite = np.array([h_max, s_max, v_max])
+     maskWhite = cv2.inRange(img, lowerWhite, upperWhite)
+
+     return maskWhite
+
 def main():
      cap = cv2.VideoCapture(0)
      if not cap.isOpened():
@@ -67,9 +87,12 @@ def main():
           gray = frame.copy()
           gray = cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY)
           img_roi = getROI(gray)
+          img_HSV = toHSV(frame)
+          HSV_mask = getHsvMask(img_HSV)
           frame = drawpoint(frame, ValTrackers(frame))
           cv2.imshow('frame', frame)
           cv2.imshow('ROI', img_roi)
+          cv2.imshow('HSV mask', HSV_mask)
 
           if cv2.waitKey(10) == ord('q'):
                break
