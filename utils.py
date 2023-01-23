@@ -15,7 +15,7 @@ def passFunction(x):
 def initializeTrackerBar(img):
      windowName = 'TrackerBar'
      cv2.namedWindow(windowName)
-     cv2.resizeWindow(windowName, 640, 200)
+     cv2.resizeWindow(windowName, 640, 480)
      cv2.createTrackbar('Width Top', windowName, 200, img.shape[1]//2, passFunction)
      cv2.createTrackbar('Height Top', windowName, 10, img.shape[0], passFunction)
      cv2.createTrackbar('Width Bottom', windowName, 200, img.shape[1]//2, passFunction)
