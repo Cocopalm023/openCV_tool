@@ -1,6 +1,4 @@
 '''
-可視覺化的小工具
-利用滑桿來控制想要得數值
 
 2023/01/20 3:50
 create by LYZ
@@ -22,6 +20,12 @@ def initializeTrackerBar(img):
      cv2.createTrackbar('Height Top', windowName, 10, img.shape[0], passFunction)
      cv2.createTrackbar('Width Bottom', windowName, 200, img.shape[1]//2, passFunction)
      cv2.createTrackbar('Height Bottom', windowName, 100, img.shape[0], passFunction)
+     cv2.createTrackbar('HUE Min', windowName, 0, 255, passFunction)
+     cv2.createTrackbar('HUE Max', windowName, 255, 255, passFunction)
+     cv2.createTrackbar('SAT Min', windowName, 0, 255, passFunction)
+     cv2.createTrackbar('SAT Max', windowName, 255, 255, passFunction)
+     cv2.createTrackbar('VALUE Min', windowName, 0, 255, passFunction)
+     cv2.createTrackbar('VALUE Max', windowName, 255, 255, passFunction)
 
 # Get Region of interesting
 def getROI(img):
